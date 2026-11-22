@@ -1,0 +1,25 @@
+# EXAMPLE ONLY — aggregate Tado heat demand from rooms you care about.
+# Use your own climate.* / sensor.* entity IDs.
+#
+# Rule of thumb used in the field trial:
+# demand = on if any watched room has heating demand ≥ 20%.
+
+template:
+  - binary_sensor:
+      - name: "Tado heat demand"
+        unique_id: tado_heat_demand_example
+        device_class: heat
+        state: >-
+          {% set rooms = [
+            states('sensor.living_room_heating'),
+            states('sensor.kitchen_heating'),
+            states('sensor.bathroom_heating'),
+          ] %}
+          {% set vals = rooms
+            | map('float', default=0)
+            | list %}
+          {{ vals | max >= 20 }}
+        delay_on:
+          minutes: 0
+        delay_off:
+          minutes: 0

@@ -1,0 +1,84 @@
+# EXAMPLE ONLY — adapt entity IDs to your EMS-ESP / Tado names.
+# Do not paste into production without review.
+
+alias: "Heat pump offset bump on Tado demand"
+description: >-
+  Moves hc1_offsettemp in steps. Idle → ohne_bedarf (−5 K EMS floor).
+  Demand → at least mit_bedarf (0 K), optionally up to Ist+2 with cap basis+3.
+mode: queued
+max: 3
+
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.tado_heat_demand
+    to: "on"
+    for:
+      minutes: 2
+    id: demand_on
+  - trigger: state
+    entity_id: binary_sensor.tado_heat_demand
+    to: "off"
+    for:
+      minutes: 10
+    id: demand_off
+  - trigger: homeassistant
+    event: start
+    id: ha_start
+
+conditions:
+  - condition: state
+    entity_id: input_boolean.heatpump_tado_ems_enable
+    state: "on"
+
+actions:
+  - choose:
+      - conditions:
+          - condition: or
+            conditions:
+              - condition: trigger
+                id: demand_on
+              - condition: and
+                conditions:
+                  - condition: trigger
+                    id: ha_start
+                  - condition: state
+                    entity_id: binary_sensor.tado_heat_demand
+                    state: "on"
+        sequence:
+          - variables:
+              basis: "{{ states('input_number.offset_with_demand') | float(0) }}"
+              offset_now: "{{ states('number.thermostat_hc1_offsettemp') | float(0) }}"
+              ist: "{{ states('sensor.boiler_curflowtemp') | float(40) }}"
+              soll: "{{ states('sensor.thermostat_hc1_targetflowtemp') | float(40) }}"
+          - variables:
+              soll_bei_basis: "{{ (soll | float) - (offset_now | float) + (basis | float) }}"
+              ziel_soll: "{{ (ist | float) + 2 }}"
+          - variables:
+              bump_offset: >-
+                {% set b = basis | float %}
+                {% set sb = soll_bei_basis | float %}
+                {% set z = ziel_soll | float %}
+                {% set cap = b + 3 %}
+                {% if sb >= z %}{{ b | round(0) }}
+                {% else %}{{ [[b + (z - sb), cap] | min, 15] | min | round(0) }}
+                {% endif %}
+          - action: script.heatpump_offset_stepped_set
+            data:
+              ziel: "{{ bump_offset }}"
+      - conditions:
+          - condition: or
+            conditions:
+              - condition: trigger
+                id: demand_off
+              - condition: and
+                conditions:
+                  - condition: trigger
+                    id: ha_start
+                  - condition: state
+                    entity_id: binary_sensor.tado_heat_demand
+                    state: "off"
+        sequence:
+          - action: script.heatpump_offset_stepped_set
+            data:
+              ziel: "{{ states('input_number.offset_without_demand') | float(-5) }}"
+    default: []

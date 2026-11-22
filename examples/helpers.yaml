@@ -1,0 +1,26 @@
+# EXAMPLE ONLY — helpers for kill-switch and offset setpoints.
+# Create via UI or paste under `input_boolean:` / `input_number:` packages.
+
+input_boolean:
+  heatpump_tado_ems_enable:
+    name: "Heat pump ↔ Tado EMS control"
+    icon: mdi:heat-pump
+    initial: true
+
+input_number:
+  offset_without_demand:
+    name: "Offset without Tado demand"
+    min: -5
+    max: 5
+    step: 1
+    unit_of_measurement: "K"
+    icon: mdi:thermometer-minus
+    initial: -5
+  offset_with_demand:
+    name: "Offset with Tado demand (basis)"
+    min: -5
+    max: 10
+    step: 1
+    unit_of_measurement: "K"
+    icon: mdi:thermometer-plus
+    initial: 0

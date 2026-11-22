@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="100%" height="100%" fill="#fff"/>
+  <text x="320.0" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="600">Weekly averages: starts &amp; electricity</text>
+<rect x="120" y="108.9" width="36" height="191.1" fill="#d97706"/><text x="138.0" y="102.9" text-anchor="middle" font-size="11" fill="#333">13.9</text><rect x="164" y="176.2" width="36" height="123.8" fill="#7c3aed"/><text x="182.0" y="170.2" text-anchor="middle" font-size="11" fill="#333">9.0</text><rect x="208" y="205.1" width="36" height="94.9" fill="#2563eb"/><text x="226.0" y="199.1" text-anchor="middle" font-size="11" fill="#333">6.9</text><text x="180" y="324" text-anchor="middle" font-size="12" fill="#333" font-family="system-ui,sans-serif">7–13 Nov (before)</text><rect x="300" y="181.8" width="36" height="118.2" fill="#d97706"/><text x="318.0" y="175.8" text-anchor="middle" font-size="11" fill="#333">8.6</text><rect x="344" y="224.4" width="36" height="75.6" fill="#7c3aed"/><text x="362.0" y="218.4" text-anchor="middle" font-size="11" fill="#333">5.5</text><rect x="388" y="194.1" width="36" height="105.9" fill="#2563eb"/><text x="406.0" y="188.1" text-anchor="middle" font-size="11" fill="#333">7.7</text><text x="360" y="324" text-anchor="middle" font-size="12" fill="#333" font-family="system-ui,sans-serif">15–21 Nov (bump)</text>
+  <rect x="430" y="50" width="12" height="12" fill="#d97706"/><text x="448" y="60" font-size="12" font-family="system-ui,sans-serif">Starts/day</text>
+  <rect x="430" y="72" width="12" height="12" fill="#7c3aed"/><text x="448" y="82" font-size="12" font-family="system-ui,sans-serif">Electric kWh/day</text>
+  <rect x="430" y="94" width="12" height="12" fill="#2563eb"/><text x="448" y="104" font-size="12" font-family="system-ui,sans-serif">Outdoor mean °C</text>
+</svg>

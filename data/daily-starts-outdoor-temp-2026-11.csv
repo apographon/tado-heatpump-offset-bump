@@ -1,0 +1,17 @@
+date,heating_starts,outdoor_temp_mean_c,notes
+2026-11-07,13,6.3,fixed offset +2/+4
+2026-11-08,9,6.3,fixed offset
+2026-11-09,18,4.2,fixed offset; cold day
+2026-11-10,11,7.6,offset lowered +4→+2 (A1)
+2026-11-11,11,10.0,fixed offset +2
+2026-11-12,13,10.3,fixed offset +2
+2026-11-13,22,3.7,peak starts before bump
+2026-11-14,17,1.6,offset →0 (A2); Offset-Bump enabled evening
+2026-11-15,12,3.8,first full day with bump (early settings)
+2026-11-16,12,8.8,bump refined (2 min / Ist+2 / cap / ≥20%)
+2026-11-17,7,8.7,
+2026-11-18,7,10.7,
+2026-11-19,6,7.3,
+2026-11-20,9,8.5,
+2026-11-21,7,6.3,
+2026-11-22,8,2.0,partial day mean until evening

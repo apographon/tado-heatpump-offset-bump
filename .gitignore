@@ -1,0 +1,16 @@
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+secrets.yaml
+**/secrets.yaml
+*.pem
+*.key
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+tmp/
+.private/

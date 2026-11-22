@@ -1,0 +1,42 @@
+# EXAMPLE ONLY — stepped writes to EMS-ESP offset.
+# EMS often rejects jumps larger than ~5 K and values below −5 K.
+
+alias: "Heat pump offset stepped set"
+mode: queued
+max: 3
+fields:
+  ziel:
+    required: true
+    selector:
+      number:
+        min: -5
+        max: 15
+        step: 1
+sequence:
+  - variables:
+      ziel_i: "{{ ziel | float(0) | round(0) | int }}"
+      jetzt: "{{ states('number.thermostat_hc1_offsettemp') | float(0) | round(0) | int }}"
+  - repeat:
+      while:
+        - condition: template
+          value_template: "{{ jetzt != ziel_i }}"
+      sequence:
+        - variables:
+            step: "{{ 5 if (ziel_i - jetzt) | abs > 5 else (ziel_i - jetzt) }}"
+            next: "{{ jetzt + step }}"
+        - action: number.set_value
+          target:
+            entity_id: number.thermostat_hc1_offsettemp
+          data:
+            value: "{{ next }}"
+        - delay:
+            seconds: 4
+        - variables:
+            gelesen: "{{ states('number.thermostat_hc1_offsettemp') | float(0) | round(0) | int }}"
+        - if:
+            - condition: template
+              value_template: "{{ gelesen != next }}"
+          then:
+            - stop: "EMS rejected or stalled offset write"
+        - variables:
+            jetzt: "{{ gelesen }}"
