@@ -6,7 +6,6 @@
 - Added sanitized daily starts / outdoor-temp CSV and weekly energy comparison
 - Added SVG charts (starts vs AT, weekly averages)
 - Added example YAML (helpers, demand template, stepped write script, bump automation)
-- Privacy notes: no personal identifiers in tree
 
 ### Field timeline (summary)
 
