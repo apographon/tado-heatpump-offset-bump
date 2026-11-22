@@ -132,12 +132,6 @@ Raw tables: [`data/daily-starts-outdoor-temp-2026-11.csv`](data/daily-starts-out
 
 User raised bathroom setpoint ~07:30 → HA first saw valve 100% / demand on at **07:45** (Tado cloud) → after 5 min debounce (later shortened to 2 min) offset left −5 at **07:50** → heating active **07:52**. Lesson: do not stack a long HA debounce on top of cloud lag.
 
-## Safety / privacy
-
-- This repository contains **no** personal names, addresses, credentials, phone device IDs, or site-specific GPS/locations.
-- Example entity IDs are generic placeholders.
-- Do not commit live `.storage` dumps, tokens, or unredacted Home Assistant backups.
-
 ## References
 
 - Bosch/Buderus community docs — cycling / hysteresis: [Optimierungen – Taktverhalten](https://bosch-buderus-wp.github.io/docs/optimierungen/)
